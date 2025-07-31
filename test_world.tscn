@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cs4drhmc1bql5"]
+[gd_scene load_steps=13 format=3 uid="uid://cs4drhmc1bql5"]
 
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="1_e18vq"]
 [ext_resource type="ArrayMesh" uid="uid://0jcj23014is8" path="res://prison.obj" id="2_gy3sr"]
 [ext_resource type="ArrayMesh" uid="uid://bj1u1yalfxme8" path="res://person.obj" id="3_dsnr4"]
 [ext_resource type="ArrayMesh" uid="uid://d1m4yex65mu6w" path="res://gallows.obj" id="4_lf0gk"]
+[ext_resource type="PackedScene" uid="uid://drjexuludyhlf" path="res://hangman.tscn" id="5_lf0gk"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_edcox"]
 ground_color = Color(0.160784, 0.815686, 0.905882, 1)
@@ -22,6 +23,9 @@ ssao_enabled = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_1lwx6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dsnr4"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lf0gk"]
+viewport_path = NodePath("SubViewport")
 
 [node name="test_world" type="Node3D"]
 
@@ -44,8 +48,7 @@ mesh = ExtResource("2_gy3sr")
 physics_material_override = SubResource("PhysicsMaterial_gy3sr")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Prison/StaticBody3D"]
-transform = Transform3D(-2.09344, 2.99589, 0, -39.9452, -0.157008, 0, 0, 0, 50, 11.0466, -1.5314, 0)
-visible = false
+transform = Transform3D(-2.09344, 2.99589, 0, -39.9452, -0.157008, 0, 0, 0, 50, 14.0466, -1.5314, 0)
 shape = SubResource("BoxShape3D_1lwx6")
 debug_color = Color(0.489987, 0.433037, 1, 0.42)
 
@@ -67,3 +70,13 @@ mesh = ExtResource("4_lf0gk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gallows/StaticBody3D"]
 transform = Transform3D(20, 0, 0, 0, 4.78, 0, 0, 0, 22, -1.47175, -1, 4.28465)
 shape = SubResource("BoxShape3D_dsnr4")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="SubViewport"]
+
+[node name="HangmanGame" parent="SubViewport/UI" instance=ExtResource("5_lf0gk")]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, -1, -2)
+texture = SubResource("ViewportTexture_lf0gk")
